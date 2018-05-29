@@ -13,22 +13,28 @@ public class User {
 		
 		
         RPN_Calculator rpn_calculator = new RPN_Calculator();
-        
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        String input;  
 
-        System.out.println("Input: ");
+        int max_loops = 40;
         
-        input = br.readLine();
+        for (int i = 0; i < max_loops; i++) {        
         
-        rpn_calculator.setClient_input(input);
+	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	        
+	        String input = "";  
         
-        rpn_calculator.process_client_input();
+	        System.out.println("Input: ");
+	        
+	        input = br.readLine();
         
-        System.out.print(rpn_calculator.getRpn_stack());
+	        rpn_calculator.setClient_input(input);
+	        
+	        rpn_calculator.process_client_input();
+	        
+	        System.out.print(rpn_calculator.getRpn_stack());
+	        
+	        System.out.print(rpn_calculator.getError_message());
         
-        System.out.print(rpn_calculator.getError_message());
+        }
  		
 		
 

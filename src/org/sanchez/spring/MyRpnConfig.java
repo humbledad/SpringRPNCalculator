@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sanchez.spring;
 
 import java.util.ArrayList;
@@ -11,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author Abel Sanchez 
  */
-public class MyConfig {
+public class MyRpnConfig {
 
 	
     public String getERR_MSG_ILLEGAL_CHARACTERS_FOUND() {
@@ -263,7 +258,6 @@ public class MyConfig {
 	public String getUNWANTED_CHARACTERS() {
 		return UNWANTED_CHARACTERS;
 	}
-
 	public void setUNWANTED_CHARACTERS(String uNWANTED_CHARACTERS) {
 		UNWANTED_CHARACTERS = uNWANTED_CHARACTERS;
 	}
@@ -332,8 +326,17 @@ public class MyConfig {
 		DIVIDE = dIVIDE;
 	}
 
+    public String getInitial_message() {
+        return initial_message;
+    }
 
-	private String ERR_MSG_ILLEGAL_CHARACTERS_FOUND = "Error: Illegal characters were found in your Input. Only numbers and the following operators are allowed: sqrt clear undo + - * /";
+    public void setInitial_message(String initial_message) {
+        this.initial_message = initial_message;
+    }
+    
+    private String initial_message = "Reverse Polish Notation Calculator. There are 7 operators, namely, 1 'sqrt' 2 '+' 3 '-' 4 '/' 5 '*' 6 'clear' 7 'undo'. One number precedes 'sqrt'. Two numbers precede '+', '-', '/', and '*'. 'clear' clears all. 'undo' undoes previous operation. For example, '3 4 +' means 3 plus 4. '81 sqrt' means square root of 81.";
+        
+    private String ERR_MSG_ILLEGAL_CHARACTERS_FOUND = "Error: Illegal characters were found in your Input. Only numbers and the following operators are allowed: sqrt clear undo + - * /";
     
     private String ERR_MSG_IN_MAIN_PROCESS = "Error in main process_client_input method.";
     
@@ -410,20 +413,7 @@ public class MyConfig {
     private String MULTIPLY = "*";     
     
     private String DIVIDE = "/";   	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	////////////////////////////////
+
     private String constants_xml_id = null;
 
     public String getConstants_xml_id() {
@@ -433,58 +423,8 @@ public class MyConfig {
     public void setConstants_xml_id(String constants_xml_id) {
         this.constants_xml_id = constants_xml_id;
     }
-
     
- /*   
-    private String databaseUrl = null; 
-    private String databaseUserName = null;
-    private String databaseUserPassword = null;
-    private String webOwner = null; 
-    private String webOwnerAbbreviated = null; 
-
-
-    public String getDatabaseUrl() {
-        return databaseUrl;
-    }
-
-    public void setDatabaseUrl(String databaseUrl) {
-        this.databaseUrl = databaseUrl;
-    }
-
-    public String getDatabaseUserName() {
-        return databaseUserName;
-    }
-
-    public void setDatabaseUserName(String databaseUserName) {
-        this.databaseUserName = databaseUserName;
-    }
-
-    public String getDatabaseUserPassword() {
-        return databaseUserPassword;
-    }
-
-    public void setDatabaseUserPassword(String databaseUserPassword) {
-        this.databaseUserPassword = databaseUserPassword;
-    }
-
-    public String getWebOwner() {
-        return webOwner;
-    }
-
-    public void setWebOwner(String webOwner) {
-        this.webOwner = webOwner;
-    }
-
-    public String getWebOwnerAbbreviated() {
-        return webOwnerAbbreviated;
-    }
-
-    public void setWebOwnerAbbreviated(String webOwnerAbbreviated) {
-        this.webOwnerAbbreviated = webOwnerAbbreviated;
-    }
-*/
-    
-    public MyConfig() {
+    public MyRpnConfig() {
     }
 
     

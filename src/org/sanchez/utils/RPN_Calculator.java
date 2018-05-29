@@ -1,33 +1,16 @@
-/*
- * RPN CALCULATOR
- * Author: Ernesto Abel Sanchez
- * Client: Airwallex (Exercise designed by client for Job Application purpose)
- * Development duration: 1 day (weekend of 26th & 27th May 2018)
- * Development package: In that RPN development day, I also developed airwallex.xhtml which is the JSF/Primefaces-client that uses this class (via my class Member) 
- * Development package: Please visit https://projectmanagerone.com , which I also developed solely, to see this RPN_Calculator object in action. With more time I could have improved it and made it more robust.
- * Class Description: Serves as a calculator; calculates arithmetic operations using Reverse Polish Notation. Operators follow their operands, in contrast to Polish notation (PN), 
- * in which operators precede their operands. In reverse Polish notation, the operators follow their operands; for instance, to add 3 and 4, one would write 3 4 + rather than 3 + 4. 
- * If there are multiple operations, operators are given immediately after their second operands; so the expression written 3 − 4 + 5 in conventional notation would be 
- * written 3 4 − 5 + in reverse Polish notation: 4 is first subtracted from 3, then 5 is added to it. An advantage of reverse Polish notation is that it removes the need for 
- * parentheses that are required by infix notation. While 3 − 4 × 5 can also be written 3 − (4 × 5), that means something quite different from (3 − 4) × 5. In reverse Polish 
- * notation, the former could be written 3 4 5 × −, which unambiguously means 3 (4 5 ×) − which reduces to 3 20 −; the latter could be written 3 4 − 5 × (or 5 3 4 − ×, if 
- * keeping similar formatting), which unambiguously means (3 4 −) 5 ×. 
- *
 
-
-*/
 package org.sanchez.utils;
 
 import static java.lang.Long.parseLong;
-
-import org.sanchez.spring.MyConfig;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.sanchez.spring.MyRpnConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class RPN_Calculator {
     
@@ -69,7 +52,7 @@ public class RPN_Calculator {
 		this.spring_context_config = spring_context_config;
 	}
 
-	private MyConfig spring_config = new MyConfig();
+	private MyRpnConfig spring_config = new MyRpnConfig();
     
     public ApplicationContext getSpring_context() {
         return spring_context;
@@ -148,7 +131,6 @@ private void replace_basic_operators_with_identifiers_that_the_apache_matcher_ca
 public String process_client_input(){
 
 try {      
-
         this.error_message = spring_config.getEMPTY();
 
         if (check_for_unwanted_characters() == -1){
@@ -205,6 +187,8 @@ try {
 
             process_non_occurence_of_legal_operators_only_apparently_numbers();
         } 
+        
+        
     }
     catch ( Exception ex){
         
@@ -232,12 +216,17 @@ private void clear_stack(){
 
 private int undo_previous_operation(){
 
-try {                 
+try {    
+    
+    String left_to_keep = spring_config.getEMPTY();
+    
     String segment = rpn_stack.get(rpn_stack.size() - 1).toString();
     String[] array_values_between_spaces = segment.split(spring_config.getSINGLE_SPACE());  
     ArrayList<String> new_array_values_between_spaces = new ArrayList<>();
     for (int i = 0; i < array_values_between_spaces.length; i++){
     new_array_values_between_spaces.add(array_values_between_spaces[i]);
+    if (i < (array_values_between_spaces.length - 1))
+       left_to_keep = left_to_keep + spring_config.getSINGLE_SPACE() + array_values_between_spaces[i];
     }    
     String last_item = new_array_values_between_spaces.get(new_array_values_between_spaces.size()-1);
     int size_of_last_item = last_item.length();
@@ -267,7 +256,9 @@ try {
         
         this.rpn_stack.remove(rpn_stack.size() - 1);
 
-        stack_record = this.log_calculations.get(log_calculations.size() - 1);
+        stack_record = left_to_keep + spring_config.getSINGLE_SPACE() + this.log_calculations.get(log_calculations.size() - 1);
+        
+        this.rpn_stack.add(stack_record);
 
         this.log_calculations.remove(log_calculations.size() - 1);        
     }
@@ -974,7 +965,9 @@ try {
         
         spring_context_config = new ClassPathXmlApplicationContext("SPRING_CONFIGURATION.xml");
         
-        MyConfig spring_config = (MyConfig) spring_context_config.getBean("rpn_calc_production");
+        MyRpnConfig spring_config = (MyRpnConfig) spring_context_config.getBean("rpn_calc_production");
+        
+        this.error_message = spring_config.getInitial_message();
         
 
         

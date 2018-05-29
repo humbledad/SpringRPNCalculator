@@ -8,12 +8,12 @@
 
 
         
-	<bean id="rpn_calc_production" class="org.sanchez.spring.MyConfig">
+	<bean id="rpn_calc_production" class="org.sanchez.spring.MyRpnConfig">
             
 
     <property name="constants_xml_id" value = "rpn_calc_production_prop_id"/>
-        
-	<property name="ERR_MSG_ILLEGAL_CHARACTERS_FOUND" value = "Error: Illegal characters were found in your Input. Only numbers and the following operators are allowed: sqrt clear undo + - * /"/>
+    
+    <property name="ERR_MSG_ILLEGAL_CHARACTERS_FOUND" value = "Error: Illegal characters were found in your Input. Only numbers and the following operators are allowed: sqrt clear undo + - * /"/>
     
     <property name="ERR_MSG_IN_MAIN_PROCESS" value = "Error in main process_client_input method."/>
     
@@ -87,10 +87,11 @@
     
     <property name="MULTIPLY" value = "*"/>     
     
-    <property name="DIVIDE" value = "/"/>  	
+    <property name="DIVIDE" value = "/"/> 
+    
+    <property name="initial_message" value = "Reverse Polish Notation Calculator. There are 7 operators, namely, 1 'sqrt' 2 '+' 3 '-' 4 '/' 5 '*' 6 'clear' 7 'undo'. One number precedes 'sqrt'. Two numbers precede '+', '-', '/', and '*'. 'clear' clears all. 'undo' undoes previous operation. For example, '3 4 +' means 3 plus 4. '81 sqrt' means square root of 81."/>  	
         
-  </bean>         
-        
+  </bean>    
 
        
                 
